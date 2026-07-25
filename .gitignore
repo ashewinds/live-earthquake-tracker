@@ -1,0 +1,7 @@
+
+#macOS
+.DS_Store
+
+# local files
+backup/
+mapbox_info/

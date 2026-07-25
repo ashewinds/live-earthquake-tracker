@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="eg">
+    <head>
+        <meta charset="UTF-8">
+        <title>Live Earthquake Tracker</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+        <link rel="stylesheet" href="earthquakes.css">
+    </head>
+    <body>
+        <div id="container">
+            <div id="top-column-container">
+                <div id="top-left-column" class="left-column">
+                    <div id="container-header">Live Earthquake Tracker
+                    <div id="container-header-subheader">Real-Time Worldwide Monitoring</div>
+                    </div>
+                    <div id="map-shell">
+                        <div id="map-container"></div>
+                        <div id="target-container"></div>
+                    </div>
+                    
+                    <div id="timeline-div">
+                        <div id="timeline-headers-div">
+                            <div id="recap-countdown-header">24 Hour Timelapse <span id="recap-timer"></span></div>
+                            <div id="live-header" class="blink">LIVE</div>
+                        </div>
+                        <div id="progress-bar"></div>
+                    </div> 
+                </div>
+            <div id="top-right-column" class="right-column">
+                <div id="recent-list-header" class="right-column-sub-header"><span class="triangle">▾</span>&nbsp;&nbsp;Most Recent&nbsp;&nbsp;<span class="triangle">▾</span></div>
+                <div id="recent-list"></div>
+                <div id="strongest-header" class="right-column-sub-header"><span class="triangle">▾</span>&nbsp;&nbsp;Strongest&nbsp;&nbsp;<span class="triangle">▾</span></div>
+                <div id="strongest-list"></div>
+            </div>
+            </div>
+            <div id="bottom-column-container">
+                <div id='bottom-left-column' class="left-column">
+                    <div id="legend">
+                        <div id="legend-header">Magnitude Color Scale <span id="greyed-out-legend-verbiage">[& Total Earthquakes per Magnitude]</span></div>
+                        <div class="richter-scale">
+                            <div class="richter-box mag-0-color" data-value="0">0</div>
+                            <div class="richter-box mag-1-color" data-value="1">1</div>
+                            <div class="richter-box mag-2-color" data-value="2">2</div>
+                            <div class="richter-box mag-3-color" data-value="3">3</div>
+                            <div class="richter-box mag-4-color" data-value="4">4</div>
+                            <div class="richter-box mag-5-color" data-value="5">5</div>
+                            <div class="richter-box mag-6-color" data-value="6">6</div>
+                            <div class="richter-box mag-7-color" data-value="7">7</div>
+                            <div class="richter-box mag-8-color" data-value="8">8</div>
+                            <div class="richter-box mag-9-color" data-value="9">9</div>
+                        </div>
+                        <div id="mag-totals">
+                            <div id="mag0-totals" class="totals-box tot-mag-0-color">0</div>
+                            <div id="mag1-totals" class="totals-box tot-mag-1-color">0</div>
+                            <div id="mag2-totals" class="totals-box tot-mag-2-color">0</div>
+                            <div id="mag3-totals" class="totals-box tot-mag-3-color">0</div>
+                            <div id="mag4-totals" class="totals-box tot-mag-4-color">0</div>
+                            <div id="mag5-totals" class="totals-box tot-mag-5-color">0</div>
+                            <div id="mag6-totals" class="totals-box tot-mag-6-color">0</div>
+                            <div id="mag7-totals" class="totals-box tot-mag-7-color">0</div>
+                            <div id="mag8-totals" class="totals-box tot-mag-8-color">0</div>
+                            <div id="mag9-totals" class="totals-box tot-mag-9-color">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="bottom-right-column" class="right-column">
+                    <div id="quakes-total-header" class="right-column-sub-header"><span class="triangle">▾</span>&nbsp;&nbsp;Total Earthquakes&nbsp;&nbsp;<span class="triangle">▾</span></div>
+                    <div id="quakes-total" class="quakes-total-list-entry"></div>
+                </div>
+            </div>
+            <div id="source-data-div">Data Source: United States Geological Survey (USGS) & European-Mediterranean Seismological Centre (EMSC)</div>
+            <div id="settings">
+                <div id="toggle-container">
+                    <div class="toggle-button" id="toggleButton"></div>
+                    <span id="toggle-text">Enable Audio</span>
+                </div>
+            </div>
+        </div>
+        <audio id="new-quake-alert" src="audio/545495__ienba__notification.wav" type="audio/wav" preload="auto"></audio>
+        <audio id="timelapse-quake-alert" src="audio/116720__timkahn__bliq.wav" type="audio/wav" preload="auto"></audio>
+        <script src="earthquakes.js"></script>
+    </body>
+</html>
