@@ -635,14 +635,14 @@ body {
 
 @keyframes grow {
     0% {
-        width: 2%;
-        height: 4%;
+        width: 2vh;
+        height: 2vh;
         /*transform: scale(1);*/
         transform: translate(-50%, -50%);
     }
     100% {
-        width: 18%; /* Change to desired size */
-        height: 36%;
+        width: 18vh; 
+        height: 18vh;
         /*transform: scale(9);*/
         transform: translate(-50%, -50%);
     }
@@ -653,8 +653,8 @@ body {
     border-radius: 50%;
     z-index: 35;
     border: 2px solid white;
-    width: 2%;
-    height: 4%;
+    width: 2vh;
+    height: 2vh;
     opacity: 0;
 }
 

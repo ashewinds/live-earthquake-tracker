@@ -32,15 +32,9 @@ const map = new mapboxgl.Map({
     zoom: 1, // starting zoom
     maxBounds: [[-180, -90], [180, 90]]
 });
-console.log('map top: ' + map.style.top)
 
 map.on('load', () => {
-    //map.dragPan.disable();
-    console.log('map top: ' + map.style.top)
-    //map.resize();
-    console.log('map top: ' + map.style.top)
     map.setCenter([11, 0]);
-    //sizeTargetWindow();
 });
 
 var sock;
@@ -80,8 +74,6 @@ function connect() {
 
 // Initial connection
 connect();
-
-
 
 function endMarkerLifespan(el){
     el.style.opacity = 0;
@@ -178,7 +170,7 @@ function fetchEarthquakeData(){
                     }
                 } 
             })
-            console.log('fecth earthquake ran but no new earthquakes');
+            console.log('fetch earthquake ran but no new earthquakes');
             initialLoad = false;
         })
         .catch(error => {
@@ -317,7 +309,7 @@ function updateListPanels(){
 
 
 function buildPanelEntry(id, data) {
-    const currentTime = Date.now();
+    //const currentTime = Date.now();
     let listItemDiv = document.createElement('div');
         
         const formattedTime = new Date(data.time).toUTCString();
@@ -331,33 +323,61 @@ function buildPanelEntry(id, data) {
         }
         const magColorClass = 'mag-' + Math.floor(magnitude) + '-color';
         const source = data.source;
-        const timeDiff = currentTime - data.time;
-        const hoursPassed = Math.floor(timeDiff / (1000 * 60 * 60)); // convert time to hours
-        const minsPassed = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-        let timeSinceQuakeString = "";
-        if (hoursPassed >= 2) {
-            timeSinceQuakeString = hoursPassed + " Hours";
-        } else if (hoursPassed > 0) {
-            timeSinceQuakeString = hoursPassed + " Hour";
-        }
-        if (minsPassed > 0) {
-            if (hoursPassed > 0) {
-                timeSinceQuakeString += ", ";
-            }
-            if (minsPassed == 1) {
-                timeSinceQuakeString += minsPassed + " Minute";
-            } else {
-                timeSinceQuakeString += minsPassed + " Minutes";   
-            }
-        }
+        const timeSinceQuakeString = getTimeSinceQuakeString(data.time);
        
-        listItemDiv.innerHTML = `<div class="top-row"><div class="div-mag"> MAG ${magnitude}</div><div class="div-depth">Depth ${depth} Km</div></div><div class="div-location"> ${location} </div><div class="bottom-row"><div class="div-time"> ${formattedTime}</div><div class="div-source">&nbsp;&nbsp;${source}</div></div><div class="time-since-quake">${timeSinceQuakeString} ago</div>`;
+        listItemDiv.innerHTML = `<div class="top-row">
+                                    <div class="div-mag"> MAG ${magnitude}</div>
+                                    <div class="div-depth">Depth ${depth} Km</div>
+                                </div>
+                                <div class="div-location"> ${location} </div>
+                                <div class="bottom-row">
+                                    <div class="div-time"> ${formattedTime}</div>
+                                    <div class="div-source">&nbsp;&nbsp;${source}</div>
+                                </div>
+                                <div class="time-since-quake" data-earthquake-time="${data.time}">${timeSinceQuakeString}</div>`;
         listItemDiv.classList.add('panel-entry', magColorClass);
         
         //panel.appendChild(listItemDiv);
         return listItemDiv;
     
 }
+
+function getTimeSinceQuakeString(earthquakeTime) {
+    const timeDiff = Date.now() - earthquakeTime;
+    const hoursPassed = Math.floor(timeDiff / (1000 * 60 * 60)); // convert time to hours
+    const minsPassed = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    let timeSinceQuakeString = '';
+    if (hoursPassed >= 2) {
+        timeSinceQuakeString = `${hoursPassed} Hours`;
+    } else if (hoursPassed === 1) {
+        timeSinceQuakeString = '1 Hour';
+    }
+    
+    if (minsPassed > 0) {
+        if (hoursPassed > 0) {
+            timeSinceQuakeString += ', ';
+        }
+        if (minsPassed === 1) {
+            timeSinceQuakeString += '1 Minute';
+        } else {
+            timeSinceQuakeString += `${minsPassed} Minutes`;
+        }
+    }
+    if (hoursPassed === 0 && minsPassed === 0) {
+        return 'Less than 1 Minute ago';
+    }
+    return `${timeSinceQuakeString} ago`;
+}
+
+function updatePanelEntryTimes() {
+    const timeElements = document.querySelectorAll('.time-since-quake');
+    timeElements.forEach(timeElement => {
+        const earthquakeTime = Number(timeElement.dataset.earthquakeTime);
+        timeElement.textContent = getTimeSinceQuakeString(earthquakeTime);
+    });
+}
+
+setInterval(updatePanelEntryTimes, 60000);
 
 function buildTsunamiEntry(id){
     let tsunamiDiv = document.createElement('div');
@@ -549,12 +569,12 @@ function animateEarthquakeRings(lng, lat){
     
     if (newQuakeSoundEnabled) {
         newQuakeSound.currentTime = 0;
-    }
-    newQuakeSound.play().catch(error => {
-        console.error("New earthquake sound failed", error)
-    });
-    console.log('just played soundn from animatedEarthquakeRings');
     
+        newQuakeSound.play().catch(error => {
+            console.error("New earthquake sound failed", error)
+        });
+        console.log('just played sounnd from animatedEarthquakeRings');
+    }
     
     for (let i = 1; i <= 3; i++) {
         setTimeout(() => {
