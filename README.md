@@ -84,9 +84,9 @@ This application is designed to run in a web browser and retrieves live earthqua
 To run the project yourself, you'll need to:
 
 1. Clone the repository.  
-    ```bash 
-    git clone https://github.com/ashewinds/live-earthquake-tracker.git
-    ```
+```bash 
+git clone https://github.com/ashewinds/live-earthquake-tracker.git
+```
 2. Create a Mapbox public access token.
 3. Replace the token in `earthquakes.js`.
 4. Configure the token to allow your development environment or deployment domain.
