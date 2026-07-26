@@ -1,30 +1,31 @@
 # Live Earthquake Tracker
 
-A responsive web application that visualizes earthquakes occurring
-around the world in real time using an interactive Mapbox map, live
-data feeds, and animated visualizations.
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
+![Mapbox](https://img.shields.io/badge/Mapbox-GL_JS-blue)
+![License](https://img.shields.io/badge/License-Portfolio-lightgrey)
 
-The application combines data from multiple public earthquake sources,
-plots events on a world map, highlights new earthquakes with animated
-target rings, reports tsunami information when available, and optionally
-plays an audio notification for newly detected earthquakes.
+A responsive web application that visualizes real-time global earthquake activity over the last 24 hours using USGS data, live EMSC WebSocket alerts, and Mapbox GL JS.
 
-------------------------------------------------------------------------
+The application combines data from multiple public earthquake sources, plots events on a world map, highlights new earthquakes with animated target rings, reports tsunami information when available, and optionally plays an audio notification for newly detected earthquakes.
+
+## Screenshot
+
+![Main Interface](images/screenshot-main.png)
+
+🌍 **Live Demo:** [https://nerdsty.com/livetrackers/earthquakes]
 
 ## Features
 
 -   Interactive Mapbox GL JS map
--   Near real-time earthquake monitoring
+-   Real-time global earthquake monitoring
 -   Tsunami reporting (when available from source data)
 -   Animated earthquake target-ring visualization
 -   Live earthquake activity feed
--   Strongest earthquake display
+-   Displays the strongest active earthquake
 -   Earthquake statistics
 -   Optional audio notifications
 -   Responsive dashboard layout
 -   Custom interface built with HTML, CSS Grid, and JavaScript
-
-------------------------------------------------------------------------
 
 ## Technologies
 
@@ -43,9 +44,7 @@ plays an audio notification for newly detected earthquakes.
 -   USGS Earthquake API
 -   EMSC earthquake feed (WebSocket)
 
-------------------------------------------------------------------------
-
-## Project Highlights
+## Technical Highlights
 
 This project demonstrates:
 
@@ -61,8 +60,6 @@ This project demonstrates:
 -   Audio notifications
 -   Client-side state management
 -   Deduplication of earthquake events received from different sources
-
-------------------------------------------------------------------------
 
 ## How It Works
 
@@ -80,22 +77,20 @@ When a new earthquake is detected, the application:
 5.  Reports tsunami information when available.
 6.  Optionally plays an audio notification.
 
-------------------------------------------------------------------------
-
 ## Running the Project
 
-Clone the repository:
+This application is designed to run in a web browser and retrieves live earthquake information from external data sources.
 
-``` bash
-git clone https://github.com/YOUR_USERNAME/live-earthquake-tracker.git
-```
+To run the project yourself, you'll need to:
 
-Because this is a client-side application, you can simply serve the
-project from a local web server or deploy it to any static hosting
-service such as GitHub Pages, Netlify, or your own web host.
-
-A Mapbox public (`pk.`) access token is required. The repository does
-not include any secret credentials.
+1. Clone the repository.  
+    ```bash 
+    git clone https://github.com/ashewinds/live-earthquake-tracker.git
+    ```
+2. Create a Mapbox public access token.
+3. Replace the token in `earthquakes.js`.
+4. Configure the token to allow your development environment or deployment domain.
+5. Open `index.html` using a local web server.
 
 ------------------------------------------------------------------------
 
